@@ -11,7 +11,7 @@ pip install -r requirement.txt
 ```
 ### Step 2
 
-Create a new file called .env and set your proxy (if needed) and api key in it.
+Create a new file named .env and set your proxy (if needed) and api key in it.
 
 ```
 # Example .env file
