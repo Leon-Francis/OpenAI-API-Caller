@@ -39,6 +39,9 @@ def create_csv_spilts(prompts, system_prompts, output_dir, cut_nums):
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
     os.makedirs(output_dir)
+
+    # The maximum number of splits is the total number of data
+    cut_nums = min(len(prompts), cut_nums)
     num_per_file = math.ceil(len(prompts) / cut_nums)
 
     for i in range(cut_nums):

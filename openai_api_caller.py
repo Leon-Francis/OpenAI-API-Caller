@@ -85,6 +85,7 @@ def get_response(
     except (KeyError, requests.exceptions.ProxyError, requests.exceptions.SSLError) as e:
         # Service Error
         logging.error(f'Get Service Error {e.__class__.__name__}: {e}')
+        logging.error(f'The trigger text is {response}')
         time.sleep(2**service_error_try)
         return get_response(prompt, model_name, system_prompt, regex_pattern, temperature, top_p, max_tokens, seeds, service_url, seed_idx, service_error_try, parse_error_try+1)
     except (ValueError, IndexError) as e:
