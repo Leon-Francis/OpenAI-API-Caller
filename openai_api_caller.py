@@ -81,7 +81,10 @@ def get_response(
             raise ValueError("parse pattern not detected.")
         elif len(re.findall(regex_pattern, response)) > 1:
             raise ValueError("Detect more than on matched result.")
-        return re.findall(regex_pattern, response)[0]
+        if type(re.findall(regex_pattern, response)[0]) == tuple:
+            return re.findall(regex_pattern, response)[0]
+        else:
+            return (re.findall(regex_pattern, response)[0], )
     except (KeyError, requests.exceptions.ProxyError, requests.exceptions.SSLError) as e:
         # Service Error
         logging.error(f'Get Service Error {e.__class__.__name__}: {e}')
