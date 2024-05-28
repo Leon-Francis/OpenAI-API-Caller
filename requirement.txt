@@ -1,0 +1,6 @@
+tqdm
+natsort
+func-timeout
+requests
+python-dotenv
+tiktoken
