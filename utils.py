@@ -24,6 +24,8 @@ def load_csv(data_path):
     return all_datas
 
 def save_csv(datas, data_path, mode='w'):
+    if len(datas) == 0:
+        return
     field_names = datas[0].keys()
     if not os.path.exists(data_path) or mode == 'w':
         with open(data_path, 'w', encoding='utf-8') as write_f:
