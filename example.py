@@ -11,6 +11,17 @@ chlr = logging.StreamHandler()
 chlr.setFormatter(formatter)
 logger.addHandler(chlr)
 
+
+import sys
+def handle_exception(exc_type, exc_value, exc_traceback):
+    if issubclass(exc_type, KeyboardInterrupt):
+        sys.__excepthook__(exc_type, exc_value, exc_traceback)
+        return
+
+    logging.error("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
+
+sys.excepthook = handle_exception
+
 def main():
     prompts = [
         'What is your favorite color? A: Yellow, B: Blue, C: Red, D: Green\nAnswer Format:\nMy answer: A/B/C/D\nReason: Explain why.',
