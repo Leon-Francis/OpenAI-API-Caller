@@ -85,7 +85,7 @@ def get_response(
             return re.findall(regex_pattern, response)[0]
         else:
             return (re.findall(regex_pattern, response)[0], )
-    except (KeyError, requests.exceptions.ProxyError, requests.exceptions.SSLError) as e:
+    except (KeyError, requests.exceptions.ProxyError, requests.exceptions.SSLError, requests.exceptions.ConnectionError, ConnectionRefusedError) as e:
         # Service Error
         logging.error(f'Get Service Error {e.__class__.__name__}: {e}')
         logging.error(f'The trigger text is {response}')
@@ -96,7 +96,7 @@ def get_response(
         logging.error(f'Get Parsing Error {e.__class__.__name__}: {e}')
         logging.error(f'The trigger text is {response}')
         if parse_error_try > 4:
-            return None, None
+            return (None, )
         time.sleep(2**service_error_try)
         return get_response(prompt, model_name, system_prompt, regex_pattern, temperature, top_p, max_tokens, seeds, service_url, seed_idx, service_error_try, parse_error_try+1)
 

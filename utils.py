@@ -67,6 +67,8 @@ def create_csv_spilts(prompts, system_prompts, output_dir, cut_nums):
     save_cache_identify(prompts, system_prompts, output_dir)
 
 def merge_csv(cache_data_paths, output_path):
+    if len(cache_data_paths) == 0:
+        return
     response_datas = []
     save_datas = []
     for d in cache_data_paths:
@@ -75,6 +77,7 @@ def merge_csv(cache_data_paths, output_path):
         save_csv(save_datas, output_path)
     for data in save_datas:
         response_datas.append(eval(data['llm_response']))
+    shutil.rmtree(os.path.dirname(cache_data_paths[0]))
     return response_datas
 
 def save_cache_identify(prompts, system_prompts, cache_file_dir):
